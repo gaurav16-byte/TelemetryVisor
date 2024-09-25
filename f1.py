@@ -4,6 +4,25 @@ import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 import seaborn as sns
 
+def mainn():    #TO HAVE THE TRACKS AND COUNTRY ALONG WITH DRIVER DETAILS
+    driver_acronyms_2024 = ['VER', 'PER', 'LEC', 'SAI', 'HAM', 'RUS', 'ALO', 'STR', 'NOR', 'PIA', 'GAS', 'OCO', 'BOT', 'ZHO', 'MAG', 'HUL', 'TSU', 'DEV', 'ALB', 'SAR', 'COL', 'BEA']
+    driver_numbers_2024 = [1, 11, 16, 55, 44, 63, 14, 18, 4, 81, 10, 31, 77, 24, 20, 27, 22, 21, 23, 2, 50, 34]
+    drivers = dict(zip(driver_acronyms_2024, driver_numbers_2024))
+    
+    countries = ['Bahrain', 'Saudi Arabia', 'Australia', 'Azerbaijan', 'United States', 'Italy', 'Monaco', 'Spain', 'Canada', 'Austria', 'United Kingdom', 'Hungary', 'Belgium', 'Netherlands', 'Singapore', 'Japan', 'Qatar', 'Mexico', 'Brazil', 'United States', 'Abu Dhabi', 'China', 'United States', 'Italy']
+    circuits = ['','','','','Miami','Imola','','','','','','','','','','','','','','Austin','','','Las Vegas', 'Monza']
+    laps = [57, 50, 58, 51, 57, 63, 78, 66, 70, 71, 52, 70, 44, 72, 62, 53, 57, 71, 71, 56, 58, 56, 50, 53]
+
+def solve_time(date, gmt):  #TO DISPLAY TIME IN THE LOCAL TIME OF THE COUNTRY
+    dat = date[:date.find('T')]
+    time = date[date.find('T')+1:-6]
+    hour = int(gmt[:gmt.find(':')])
+    minute = int(gmt[gmt.find(':') + 1 : gmt.rfind(':')])
+    utc_datetime = datetime.strptime(f"{dat} {time}", "%Y-%m-%d %H:%M:%S")
+    gmt_offset = timedelta(hours=hour, minutes=minute)
+    local_datetime = utc_datetime + gmt_offset
+    return local_datetime
+
 def namesss(country, year, ckt = None): #TO GET PROPER NAME OF THE GRAND PRIX
     response = urlopen(f'https://api.openf1.org/v1/meetings?year={year}&country_name={country}')
     data = json.loads(response.read().decode('utf-8'))
@@ -24,18 +43,16 @@ def important_values(country, session_type, year, ckt = None):  #TO GET THE SESS
         for i in data:
             if i['circuit_short_name'].lower() == ckt.lower():
                 data = i
-    
     session_key = data['session_key']
     meeting_key = data['meeting_key']
     ckt_short = data['circuit_short_name']
     country_name = data['country_name']
     start_date = data['date_start']
     gmt_offset = data['gmt_offset']
-    print(start_date)
-    print(gmt_offset)
+    local_time = solve_time(start_date, gmt_offset)
     return session_key, meeting_key, ckt_short, country_name
 
-session_key, meeting_key, ckt_short, country_name = important_values('United+States', 'Race', 2023, 'Austin')
+session_key, meeting_key, ckt_short, country_name = important_values('Brazil', 'Race', 2023)
 
 def cars_data(driver_number, session_key = session_key):
     response = urlopen(f'https://api.openf1.org/v1/car_data?driver_number={driver_number}&session_key={session_key}&speed>=1')  #SPEED AND OTHER CAR DETAILS
@@ -56,7 +73,7 @@ def drivers_info(car_no, session_key = session_key):    #GET TEAM COLOR AND DRIV
     short = data['name_acronym']
     team_color = data['team_colour']
     return short, team_color
-    
+
 def laps_info(driver, lap_number, session_key = session_key):   #ADDED LAP TIMES AND MINI SECTORS
     try:
         response = urlopen(f'https://api.openf1.org/v1/laps?session_key={session_key}&driver_number={driver}&lap_number={lap_number}')
@@ -103,7 +120,7 @@ def locations(driver, start, end, session_key = session_key):   #ADDED TRACKERS 
     plt.show()
     #'''
 
-locations(1, started, new_time_string)
+#locations(1, started, new_time_string)
 
 def tyres(session_key = session_key):   #STINTS FOR ALL DRIVERS USE A FOR LOOP FOR SPECIFIC DRIVER DATA OR 
     response = urlopen(f'https://api.openf1.org/v1/stints?session_key={session_key}&tyre_age_at_start>=0')
@@ -181,3 +198,4 @@ def temps(meeting_key = meeting_key):
         ax.axvline(0, color=font_color, lw=1.0)  # Vertical axis (Y-axis)
     plt.tight_layout(pad=2.0)
     plt.show()
+temps()    
