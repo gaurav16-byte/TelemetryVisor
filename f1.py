@@ -3,8 +3,11 @@ import json
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from time import sleep
+import pygame
+import io
+import requests
 
-def mainn():    #TO HAVE THE TRACKS AND COUNTRY ALONG WITH DRIVER DETAILS
+def mainn(i = None):
     driver_acronyms_2024 = ['VER', 'PER', 'LEC', 'SAI', 'HAM', 'RUS', 'ALO', 'STR', 'NOR', 'PIA', 'GAS', 'OCO', 'BOT', 'ZHO', 'MAG', 'HUL', 'TSU', 'DEV', 'ALB', 'SAR', 'COL', 'BEA']
     driver_numbers_2024 = [1, 11, 16, 55, 44, 63, 14, 18, 4, 81, 10, 31, 77, 24, 20, 27, 22, 21, 23, 2, 50, 34]
     drivers = dict(zip(driver_acronyms_2024, driver_numbers_2024))
@@ -12,13 +15,12 @@ def mainn():    #TO HAVE THE TRACKS AND COUNTRY ALONG WITH DRIVER DETAILS
     
     countries = ['Bahrain', 'Saudi Arabia', 'Australia', 'Azerbaijan', 'United States', 'Italy', 'Monaco', 'Spain', 'Canada', 'Austria', 'United Kingdom', 'Hungary', 'Belgium', 'Netherlands', 'Singapore', 'Japan', 'Qatar', 'Mexico', 'Brazil', 'United States', 'United Arab Emirates', 'China', 'United States', 'Italy']
     circuits = ['','','','','Miami','Imola','','','','','','','','','','','','','','Austin','','','Las Vegas', 'Monza']
-    laps = [57, 50, 58, 51, 57, 63, 78, 66, 70, 71, 52, 70, 44, 72, 62, 53, 57, 71, 71, 56, 58, 56, 50, 53]
-
     return drivers, drivers1
 
 all_drivers, driver_nos = mainn()
+print(all_drivers)
 
-def solve_time(date, gmt):  #TO DISPLAY TIME IN THE LOCAL TIME OF THE COUNTRY
+def solve_time(date, gmt):
     dat = date[:date.find('T')]
     time = date[date.find('T')+1:-6]
     hour = int(gmt[:gmt.find(':')])
@@ -28,7 +30,7 @@ def solve_time(date, gmt):  #TO DISPLAY TIME IN THE LOCAL TIME OF THE COUNTRY
     local_datetime = utc_datetime + gmt_offset
     print(f'Local Time: {local_datetime}')
 
-def namesss(country, year, ckt = None): #TO GET PROPER NAME OF THE GRAND PRIX
+def namesss(country, year, ckt = None):
     sleep(1)
     response = urlopen(f'https://api.openf1.org/v1/meetings?year={year}&country_name={country}')
     data = json.loads(response.read().decode('utf-8'))
@@ -41,7 +43,7 @@ def namesss(country, year, ckt = None): #TO GET PROPER NAME OF THE GRAND PRIX
 
     return data["meeting_official_name"]
 
-def important_values(country, year, ckt = None, session_type = 'Race'):  #TO GET THE SESSION, MEETING KEYS, SHORT CIRCUIT NAME, AND COUNTRY
+def important_values(country, year, ckt = None, session_type = 'Race'):
     response = urlopen(f'https://api.openf1.org/v1/sessions?country_name={country}&session_name={session_type}&year={year}')
     sleep(1)
     data = json.loads(response.read().decode('utf-8'))
@@ -63,11 +65,11 @@ def important_values(country, year, ckt = None, session_type = 'Race'):  #TO GET
 
     return session_key, meeting_key, ckt_short, country_name
 
-session_key, meeting_key, ckt_short, country_name = important_values('Belgium', 2024)
+session_key, meeting_key, ckt_short, country_name = important_values('Italy', 2023, 'Monza')
 
-def cars_data(driver_number, session_key = session_key):    #GET VARIOUS DETAILS OF A SPECIFIC CAR
+def cars_data(driver_number, session_key = session_key):
     sleep(1)
-    response = urlopen(f'https://api.openf1.org/v1/car_data?driver_number={driver_number}&session_key={session_key}&speed>=1')  #SPEED AND OTHER CAR DETAILS
+    response = urlopen(f'https://api.openf1.org/v1/car_data?driver_number={driver_number}&session_key={session_key}&speed>=1')
     data = json.loads(response.read().decode('utf-8'))
     rpm = []
     speed = []
@@ -85,9 +87,9 @@ def cars_data(driver_number, session_key = session_key):    #GET VARIOUS DETAILS
 
     return rpm, speed, gear, throttle, brake, drs
 
-def cars_data_plot(driver_number, session_key = session_key, driver_nos = driver_nos):  #TO PLOT THE VALUES OF A SINGLE CAR
+def cars_data_plot(driver_number, session_key = session_key, driver_nos = driver_nos):
     rpm, speed, gear, throttle, brake, drs = cars_data(driver_number)
-    fig, axs = plt.subplots(2, 3, figsize=(12, 8))  # 2 rows, 3 columns
+    fig, axs = plt.subplots(2, 3, figsize=(12, 8))
     axs[0, 0].plot(rpm, color='b')
     axs[0, 0].set_title(f"{driver_nos[driver_number]} - RPM")
     axs[0, 0].set_xticks([])    
@@ -109,7 +111,7 @@ def cars_data_plot(driver_number, session_key = session_key, driver_nos = driver
     plt.tight_layout()
     plt.show()
 
-def compare_drivers(d1, d2, metric, session_key = session_key, driver_nos = driver_nos):    #TO PLOT THE METRICS OF TWO DIFFERENT DRIVERS
+def compare_drivers(d1, d2, metric, session_key = session_key, driver_nos = driver_nos):
     color1 = '#3671C6'
     color2 = '#FF8700'
     rpm1, speed1, gear1, throttle1, brake1, drs1 = cars_data(d1)
@@ -125,7 +127,7 @@ def compare_drivers(d1, d2, metric, session_key = session_key, driver_nos = driv
 
 #compare_drivers(1, 44)
 
-def laps_info(driver, lap_number, session_key = session_key):   #ADDED LAP TIMES AND MINI SECTORS
+def laps_info(driver, lap_number, session_key = session_key):
     sleep(1)
     try:
         response = urlopen(f'https://api.openf1.org/v1/laps?session_key={session_key}&driver_number={driver}&lap_number={lap_number}')
@@ -152,7 +154,7 @@ def laps_info(driver, lap_number, session_key = session_key):   #ADDED LAP TIMES
 
     return started, new_time_string, speed_trap, duration, out_lap, sec1, sec2, sec3
 
-def locations(driver, start, end, session_key = session_key):   #ADDED TRACKERS FOR CARS
+def locations(driver, start, end, session_key = session_key):
     sleep(1)
     response = urlopen(f'https://api.openf1.org/v1/location?session_key={session_key}&driver_number={driver}&date>{start}&date<{end}')
     data = json.loads(response.read().decode('utf-8'))
@@ -164,7 +166,7 @@ def locations(driver, start, end, session_key = session_key):   #ADDED TRACKERS 
 
     return xx, yy
 
-def plot_locations(driver, lapp, session_key = session_key, driver_nos = driver_nos):   #PLOT LOCATIONS OF A SINGLE CAR
+def plot_locations(driver, lapp, session_key = session_key, driver_nos = driver_nos):
     started, new_time_string, speed_trap, duration, out_lap, sec1, sec2, sec3 = laps_info(driver, lapp)
     xx, yy = locations(driver, started, new_time_string, session_key = session_key)
     plt.figure(figsize=(10, 8))
@@ -200,8 +202,8 @@ def plot_comparison(d1, d2, lapp, session_key = session_key, driver_nos = driver
     plt.legend()
     plt.show()
 
-def tyres(session_key = session_key):   #STINTS FOR ALL DRIVERS USE A FOR LOOP FOR SPECIFIC DRIVER DATA OR
-    sleep(1) 
+def tyres(session_key = session_key):
+    sleep(1)
     response = urlopen(f'https://api.openf1.org/v1/stints?session_key={session_key}&tyre_age_at_start>=0')
     data = json.loads(response.read().decode('utf-8'))
     compound = data[0]['compound']
@@ -209,12 +211,26 @@ def tyres(session_key = session_key):   #STINTS FOR ALL DRIVERS USE A FOR LOOP F
     start_lap = data[0]['lap_start']
     end_lap = data[0]['lap_end']
 
-def radios(driver, session_key = session_key):  #WITH COMMENTS CAN LISTEN TO RADIOS ONE BY ONE
+def play_audio_from_url(url):
+    pygame.mixer.init()
+    response = requests.get(url)
+    audio_data = io.BytesIO(response.content)
+    pygame.mixer.music.load(audio_data)
+    pygame.mixer.music.play()
+    while pygame.mixer.music.get_busy():
+        pygame.time.Clock().tick(10)
+
+def radios(driver, session_key = session_key):
     sleep(1)
     response = urlopen(f'https://api.openf1.org/v1/team_radio?session_key={session_key}&driver_number={driver}')
     data = json.loads(response.read().decode('utf-8'))
+    for i in data:
+        print(i['date'][:-9])
+        play_audio_from_url(i['recording_url'])
+    
+radios(1)
 
-def temps(meeting_key = meeting_key):   #TO PLOT THE TEMPARATURES ON THE TRACK
+def temps(meeting_key = session_key):
     sleep(1)
     response = urlopen(f'https://api.openf1.org/v1/weather?meeting_key={meeting_key}&wind_direction>=0&track_temperature>=1')
     data = json.loads(response.read().decode('utf-8'))
@@ -246,6 +262,5 @@ def temps(meeting_key = meeting_key):   #TO PLOT THE TEMPARATURES ON THE TRACK
     axs[4].plot(winsp, color='purple', label='Wind Speed (km/h)')
     axs[4].set_title('Wind speed')
     axs[4].set_xticks([])
-
     plt.tight_layout()
     plt.show()
