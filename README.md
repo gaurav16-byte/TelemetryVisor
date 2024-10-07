@@ -33,3 +33,15 @@ This function plays all the team radios of a particular driver. You can listen t
 # 7. temps
 This function plots all the external factors during the race like Humidity, Rainfall if any, track temperature, air temperature and wind speed.
 ![{68989D15-92EC-4B79-81BE-110A98219525}](https://github.com/user-attachments/assets/ed8fc504-fe49-4786-a6f3-e8fd59de10fb)
+
+**UPDATES**
+
+# 8. plot_times
+This function is used to plot the lap times of the driver throughout the course of the race, some lap times may show as 0, data is missing from backend
+![{A65FAD95-ED51-4353-870A-33CECAFAEB49}](https://github.com/user-attachments/assets/860288ab-5eed-4205-aaf9-00c0df22b5a7)
+
+# 9. times_comparison
+This function compares the lap times of two drivers over the course of the race, just like the above case, some times may show as 0, data is missing from the backend
+![{47BC8980-FAB8-4479-9432-42DDE3E35251}](https://github.com/user-attachments/assets/353f54ad-d8ec-4306-993d-b48a19a54093)
+
+**Comparison of lap times of two drivers takes a lot of time, 1-3 minutes depending on the server response speed**
