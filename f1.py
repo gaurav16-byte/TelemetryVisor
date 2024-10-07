@@ -15,9 +15,14 @@ def mainn(i = None):
     
     countries = ['Bahrain', 'Saudi Arabia', 'Australia', 'Azerbaijan', 'United States', 'Italy', 'Monaco', 'Spain', 'Canada', 'Austria', 'United Kingdom', 'Hungary', 'Belgium', 'Netherlands', 'Singapore', 'Japan', 'Qatar', 'Mexico', 'Brazil', 'United States', 'United Arab Emirates', 'China', 'United States', 'Italy']
     circuits = ['','','','','Miami','Imola','','','','','','','','','','','','','','Austin','','','Las Vegas', 'Monza']
-    return drivers, drivers1
+    laps = [57, 50, 58, 51, 57, 63, 78, 66, 70, 71, 52, 70, 44, 72, 62, 53, 57, 71, 71, 56, 55, 50, 50, 53]
+    tracks = []
+    for i in range(len(countries)):
+        tracks.append(f'{countries[i]}:{circuits[i]}:{laps[i]}')
 
-all_drivers, driver_nos = mainn()
+    return drivers, drivers1, tracks
+
+all_drivers, driver_nos, tracks = mainn()
 print(all_drivers)
 
 def solve_time(date, gmt):
@@ -111,21 +116,19 @@ def cars_data_plot(driver_number, session_key = session_key, driver_nos = driver
     plt.tight_layout()
     plt.show()
 
-def compare_drivers(d1, d2, metric, session_key = session_key, driver_nos = driver_nos):
+def compare_drivers(d1, d2, session_key = session_key, driver_nos = driver_nos):
     color1 = '#3671C6'
     color2 = '#FF8700'
     rpm1, speed1, gear1, throttle1, brake1, drs1 = cars_data(d1)
     rpm2, speed2, gear2, throttle2, brake2, drs2 = cars_data(d2)
     plt.figure(figsize=(10, 6))
-    plt.plot(f'{metric}1', color=color1, label=driver_nos[d1])
-    plt.plot(f'{metric}2', color=color2, label=driver_nos[d2])
+    plt.plot(speed1, color=color1, label=driver_nos[d1])
+    plt.plot(speed2, color=color2, label=driver_nos[d2])
     plt.title("Speed Comparison of Drivers")
     plt.xlabel("Time (or Lap Data Points)")
     plt.ylabel("Speed (km/h)")
     plt.legend(loc="upper right")
     plt.show()
-
-#compare_drivers(1, 44)
 
 def laps_info(driver, lap_number, session_key = session_key):
     sleep(1)
@@ -153,6 +156,64 @@ def laps_info(driver, lap_number, session_key = session_key):
     new_time_string = new_time.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
 
     return started, new_time_string, speed_trap, duration, out_lap, sec1, sec2, sec3
+
+def plot_times(driver, laps, session_key = session_key):
+    x = []
+    y = []
+    for i in range(1, laps + 1):
+        x.append(i)
+        try:
+            started, new_time_string, speed_trap, duration, out_lap, sec1, sec2, sec3 = laps_info(driver, i)
+        except Exception:
+            duration = 0
+            y.append(duration)
+        else:
+            y.append(duration)
+    for i in range(len(y)):
+        if y[i] is None:
+            y[i] = 0
+    plt.figure(figsize=(10, 6))
+    plt.barh(x, y, color='skyblue')
+    plt.xlabel('Lap Time (seconds)')
+    plt.ylabel('Lap Number')
+    plt.title('Lap Times per Lap')
+    plt.gca().invert_yaxis()
+    plt.show()
+
+def times_comparison(driver1, driver2, laps, session_key = session_key):
+    color1 = '#3671C6'
+    color2 = '#FF8700'
+    x = []
+    y = []
+    z = []
+    for i in range(1, laps + 1):
+        x.append(i)
+        try:
+            started, new_time_string, speed_trap, duration, out_lap, sec1, sec2, sec3 = laps_info(driver1, i)
+            started1, new_time_string1, speed_trap1, duration1, out_lap1, sec11, sec21, sec31 = laps_info(driver2, i)
+        except Exception:
+            duration = 0
+            duration1 = 0
+            y.append(duration)
+            z.append(duration1)
+        else:
+            y.append(duration)
+            z.append(duration1)
+    for i in range(len(y)):
+        if y[i] is None:
+            y[i] = 0
+        if z[i] is None:
+            z[i] = 0
+    fig, ax = plt.subplots()
+    ax.bar(x, y, color=color1, width=0.4, align='center', label='Driver 1', alpha=0.7)
+    ax.bar([i + 0.4 for i in x], z, color=color2, width=0.4, align='center', label='Driver 2', alpha=0.7)
+    ax.set_xlabel('Laps')
+    ax.set_ylabel('Lap Time (Seconds)')
+    ax.set_title('Lap Time Comparison Between Driver 1 and Driver 2')
+    ax.grid(True, which='both', linestyle='--', linewidth=0.5)
+    ax.legend()
+    plt.show()
+times_comparison(1, 4, 53)
 
 def locations(driver, start, end, session_key = session_key):
     sleep(1)
@@ -227,10 +288,8 @@ def radios(driver, session_key = session_key):
     for i in data:
         print(i['date'][:-9])
         play_audio_from_url(i['recording_url'])
-    
-radios(1)
 
-def temps(meeting_key = session_key):
+def temps(meeting_key = meeting_key):
     sleep(1)
     response = urlopen(f'https://api.openf1.org/v1/weather?meeting_key={meeting_key}&wind_direction>=0&track_temperature>=1')
     data = json.loads(response.read().decode('utf-8'))
