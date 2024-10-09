@@ -1,0 +1,62 @@
+**F1 BOT COMMAND LIST**
+
+**!hello**
+Greet the bot and get a personal response.
+*Example: !hello*
+
+**!drivers**
+Get a list of all current F1 drivers.
+*Example: !drivers*
+
+**!tracks**
+Get a list of all F1 tracks.
+*Example: !tracks*
+
+**!country <Country_Name>**
+Set the country for the session. Countries must be capitalized and formatted correctly.
+*Example: !country Bahrain*
+*Example for multi-word country: !country Saudi+Arabia*
+
+**!year <Year>**
+Set the year for the session (supports only 2023 and 2024).
+**Example: !year 2023**
+
+**!circuit <Circuit_Name>**
+Set the circuit in the chosen country (only if country has multiple circuits like Italy and United States.
+*Example: !circuit Monza (for Italy)*
+*Example: !circuit Austin (for United States)*
+
+**!set**
+Example: !set (you need to have set country, year, and circuit first)
+
+**!plot_car <Driver_Number>**
+Plots the car data for a specified driver on the track.
+*Example: !plot_car 1 (for Max Verstappen)*
+
+**!plot_metric <Driver1> <Driver2> <Metric>**
+Compares metrics (e.g., speed, rpm, gear, drs, throttle, brake) between two drivers.
+*Example: !plot_metric 1 44 speed*
+
+**!laptimes <Driver_Number> <Number_of_Laps>**
+Displays lap times for the specified driver over a number of laps.
+*Example: !laptimes 1 10 (for 10 laps of driver)*
+
+**!lapsheet <Driver1> <Driver2> <Number_of_Laps>**
+Compares lap times between two drivers over a number of laps.
+*Example: !lapsheet 1 44 10*
+
+**!route <Driver_Number> <Lap_Number>**
+Shows the path taken by a specific driver on a specific lap.
+*Example: !route 1 5*
+
+**!locations <Driver1> <Driver2> <Lap_Number>**
+Compares the paths of two drivers on a specific lap.
+*Example: !locations 1 44 5*
+
+**!radios <Driver_Number>**
+Fetches radio recordings of a specified driver.
+*Example: !radios 1*
+
+**!temps**
+Plots the weather data (temperature, humidity, wind, etc.) for a session.
+*Example: !temps*
