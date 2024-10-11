@@ -1,0 +1,68 @@
+Privacy Policy for F1 Live Data Discord Bot
+
+Effective Date: 10 October 2024
+
+Welcome to our F1 Live Data Discord Bot (TelemetryVisor). Your privacy is critically important to us, and this Privacy Policy outlines how we collect, use, and protect any information that you provide or that is collected automatically while using the Bot. By using the Bot and any services associated with it, you agree to the terms of this Privacy Policy.
+
+1. Information We Collect
+We collect and process different types of data when you interact with the Bot. This includes:
+
+a. User Information
+Discord Username and ID: When you interact with the Bot, your Discord username, ID, and the content of messages sent to the Bot may be collected to facilitate communication between the Bot and users.
+Server ID: The Bot collects the server ID of the Discord server in which it is installed to ensure proper functionality.
+b. Usage Data
+We may collect information about how users interact with the Bot, including:
+
+Command Usage: Data on how often specific commands are used, which commands are invoked, and when they are invoked.
+Interaction Logs: Logs of user commands and responses provided by the Bot, as well as related events.
+c. Live Race Data
+The Bot processes publicly available live race data, which may include:
+
+Driver Telemetry: Car telemetry, lap times, speed, position, and other relevant race metrics.
+Race Radio Recordings: Audio snippets and radio communications from the race events.
+Weather and Track Conditions: Air and track temperatures, humidity, wind speeds, and other related environmental data.
+This data is processed in real-time through the Bot’s interaction with third-party APIs and presented to users. This data is not stored permanently and is only retained temporarily for the duration of the session.
+
+2. How We Use the Information
+We use the information collected for the following purposes:
+
+To Provide the Service: Enable users to access race data, telemetry, and interact with the Bot’s functionalities such as plotting graphs, viewing laptimes, and downloading datasets.
+Improve User Experience: Analyze usage patterns to improve the Bot’s features, optimize performance, and provide better user support.
+Security & Compliance: Monitor activity to detect, prevent, and address potential threats, abuse, or breaches of the Terms of Service.
+3. Sharing Your Information
+We do not share or sell your personal information to third parties except in the following situations:
+
+With Your Consent: We may share information with third parties when we have your explicit consent.
+Third-Party APIs: The Bot relies on third-party APIs for retrieving live race data, radio communications, and telemetry. These APIs may collect and process data according to their respective privacy policies.
+Legal Requirements: If required by law or legal process, we may disclose your information to comply with a court order, government investigation, or other legal obligation.
+4. Data Retention
+We retain your data only for as long as is necessary for the purposes set out in this Privacy Policy. Usage data, command logs, and temporary telemetry data are retained for the duration of a session. After that, it is deleted or anonymized.
+
+5. Data Security
+We are committed to ensuring that your information is secure. To prevent unauthorized access, disclosure, or alteration, we have put in place suitable physical, electronic, and managerial procedures to safeguard and secure the information we collect.
+
+However, please note that no system is entirely secure, and we cannot guarantee the absolute security of your data. By using the Bot, you acknowledge and accept this risk.
+
+6. Your Rights
+Depending on your location, you may have the right to:
+
+Access the personal information we collect about you.
+Request the correction of inaccurate or incomplete information.
+Request the deletion of your personal information.
+Object to or restrict the processing of your data.
+Withdraw consent where the Bot relies on your consent for data collection.
+To exercise any of these rights, please contact us via Discord or through the Bot’s support server.
+
+7. Children’s Privacy
+The Bot is not intended for use by individuals under the age of 3, and we do not knowingly collect data from children under 3. If you believe we have inadvertently collected such data, please contact us, and we will take prompt action to delete the information.
+
+8. Third-Party Links and Content
+The Bot may contain links to third-party websites, services, or resources. We are not responsible for the content, privacy policies, or practices of any third-party websites or services. We encourage users to review the privacy policies of any third-party websites they visit.
+
+9. Changes to This Privacy Policy
+We reserve the right to update or modify this Privacy Policy at any time. Any changes will be posted on this page with the “Effective Date” updated accordingly. Continued use of the Bot following any changes constitutes acceptance of those changes.
+
+10. Contact Us
+If you have any questions about this Privacy Policy, data collection, or how we handle your information, please reach out to us through the Discord server or contact our team at:
+
+https://discord.gg/JSJ7fm64cD
