@@ -1,0 +1,59 @@
+Privacy Policy for TelemetryVisor
+Effective Date: October 10, 2024
+
+At TelemetryVisor, we are deeply committed to protecting your privacy and safeguarding your data. This Privacy Policy outlines how we collect, use, and protect the information provided by users of our F1 Live Data Discord Bot (the “Bot”). By using TelemetryVisor, you agree to the data collection and usage practices described in this policy.
+
+1. Information We Collect
+TelemetryVisor collects a range of data to deliver its services. These include personal identifiers and F1 race-related data that helps us provide the Bot's core functionalities.
+
+a. Personal Information
+Discord Username and User ID: We collect your Discord username and ID to identify you within the Bot and ensure responses are correctly attributed to you.
+Server Information: We log server IDs and channel IDs where the Bot operates to keep track of server activity, improve Bot performance, and manage user interactions.
+Interaction Logs: We collect data about the commands you use with the Bot to track Bot usage, assist with troubleshooting, and improve the Bot's features.
+b. F1 Data Collection
+TelemetryVisor fetches real-time and historical F1 race data through API integrations. This may include:
+
+Lap Times
+Driver Telemetry (e.g., Speed, Position)
+Weather Data (e.g., Air & Track Temperature, Rainfall)
+Team Radio
+Other relevant race performance metrics
+None of this F1 data is linked to personal identifiers; it is only collected for racing analysis purposes.
+
+2. How We Use Your Information
+TelemetryVisor uses the collected data primarily to provide you with real-time and post-race analysis services. Specifically, we may use your information for the following purposes:
+
+Bot Functionality: To allow you to interact with race data, generate datasets, and perform analysis on the collected metrics.
+Improvement & Development: To analyze user interactions with the Bot and improve its features, performance, and data accuracy.
+Server Management: To ensure smooth operation within the Discord servers, manage users, and troubleshoot issues.
+We do not sell or share your personal information with any third-party advertisers or marketers.
+
+3. Data Storage and Security
+We take the security of your data seriously. All user information collected by TelemetryVisor is stored securely and is only accessible to authorized team members. We employ industry-standard encryption protocols to protect personal data and ensure that it remains confidential.
+
+Data Retention: We retain data collected through TelemetryVisor only for as long as necessary to fulfill the purposes described in this Privacy Policy, or as required by law.
+
+4. Sharing Your Data
+TelemetryVisor does not share your personal information with third parties except in the following circumstances:
+
+With Your Consent: We will share your data only when you have provided explicit consent to do so.
+Legal Requirements: If we are required to disclose your information to comply with a legal obligation, we may share data with law enforcement or other governmental entities.
+5. Your Rights
+You have the following rights concerning your personal data:
+
+Access: You can request access to the information we hold about you.
+Rectification: You have the right to request corrections if your personal data is inaccurate or incomplete.
+Erasure: You can request the deletion of your personal data under certain conditions.
+Restriction: You can request that we limit the processing of your personal data.
+To exercise any of these rights, please contact us at [Insert Contact Info].
+
+6. Cookies and Tracking Technologies
+TelemetryVisor itself does not use cookies. However, the Discord platform or other APIs we integrate with may collect additional data. Please refer to their respective privacy policies for more information on cookies and tracking technologies.
+
+7. Changes to This Policy
+We may update this Privacy Policy from time to time. Any changes will be posted here, along with the updated effective date. You are encouraged to review this Privacy Policy periodically to stay informed about how we are protecting your information.
+
+8. Contact Us
+If you have any questions or concerns about this Privacy Policy or how your data is being handled, please contact us at:
+Email: taxalig@gmail.com
+Discord: https://discord.gg/JSJ7fm64cD
